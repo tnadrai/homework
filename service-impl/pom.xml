@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.haris</groupId>
+        <artifactId>homework</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>service-impl</artifactId>
+    <packaging>jar</packaging>
+    <name>Project Module - Service Implementation</name>
+    <description>Module that contains services implementation defined on Service API module. Depends of Repository Module and 
+    Service API Module.</description>    
+
+    <dependencies>
+
+      <!-- Project Modules -->
+      <dependency>
+        <groupId>com.haris</groupId>
+        <artifactId>repository</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>com.haris</groupId>
+          <artifactId>service-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+    </dependencies>
+
+    
+</project>
