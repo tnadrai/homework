@@ -10,7 +10,7 @@
     <artifactId>model</artifactId>
     <packaging>jar</packaging>
     <name>Project Module - Model</name>
-    <description>Module that contains all Entities and Visual Objects to be used in the project. It doesn't have any dependencies.</description>
+    <description>Module that contains all Entities to be used in the project. </description>
 
     <dependencies>
     <!-- lombok -->
