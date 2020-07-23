@@ -1,6 +1,6 @@
 package com.haris.service.impl;
 
-import com.haris.domain.dto.MachineDto;
+import com.haris.service.dto.MachineDto;
 import com.haris.domain.entity.Machine;
 import com.haris.repository.MachineRepository;
 import com.haris.service.api.MachineService;
@@ -14,32 +14,31 @@ import org.springframework.stereotype.Service;
 @Service
 public class MachineServiceImpl implements MachineService {
 
-    @Autowired
     private MachineRepository machineRepository;
 
+    public MachineServiceImpl(MachineRepository machineRepository) {
+        this.machineRepository = machineRepository;
+    }
+
     public Set<MachineDto> getAllMachines() {
-        Set<MachineDto> result = machineRepository.findAll()
-            .stream().map(m -> new MachineDto(m))
+        return machineRepository.findAll()
+            .stream().map(MachineDto::new)
             .collect(Collectors.toSet());
-        return result;
     }
 
     @Override
     public Optional<MachineDto> getMachineById(Long id) {
-        Optional<Machine> machine = machineRepository.findById(id);
-        if (machine.isPresent()) {
-            return Optional.ofNullable(new MachineDto(machine.get()));
-        } else return Optional.empty();
+        return machineRepository.findById(id).map(MachineDto::new);
     }
 
     @Override
-    public Optional<MachineDto> updateMachineById(Long id) {
+    public Optional<MachineDto> updateMachineNameById(Long id, String name) {
         Optional<Machine> machineOpt = machineRepository.findById(id);
 
         if (machineOpt.isPresent()) {
             Machine machine = machineOpt.get();
-            machine.setUpdatedAt(LocalDateTime.now());
-            return Optional.ofNullable(new MachineDto(machineRepository.save(machine)));
+            machine.setName(name);
+            return Optional.of(new MachineDto(machineRepository.save(machine)));
         } else {
             return Optional.empty();
         }
@@ -50,11 +49,8 @@ public class MachineServiceImpl implements MachineService {
 
         Machine machine = new Machine();
         machine.setName(name);
-        machine.setCreatedAt(LocalDateTime.now());
-        machine.setDeleted(false);
-        machine.setUpdatedAt(null);
 
-        return Optional.ofNullable(new MachineDto(machineRepository.save(machine)));
+        return Optional.of(new MachineDto(machineRepository.save(machine)));
 
     }
 

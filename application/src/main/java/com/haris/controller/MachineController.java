@@ -4,11 +4,10 @@
 
 package com.haris.controller;
 
-import com.haris.domain.dto.MachineDto;
+import com.haris.service.dto.MachineDto;
 import com.haris.service.api.MachineService;
 import java.util.Optional;
 import java.util.Set;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,15 +15,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class MachineController {
 
-    @Autowired
-    private MachineService machineService;
+    private final MachineService machineService;
 
-    //TODO ordered by last modified first
+    public MachineController(MachineService machineService) {
+        this.machineService = machineService;
+    }
+
     @GetMapping("/machines")
     public Set<MachineDto> getAllMachines() {
         return machineService.getAllMachines();
@@ -37,13 +40,13 @@ public class MachineController {
     }
 
     @PutMapping(path = "/machine/{id}")
-    public ResponseEntity<MachineDto> updateMachine(@PathVariable Long id) {
-        Optional<MachineDto> machine = machineService.updateMachineById(id);
+    public ResponseEntity<MachineDto> updateMachine(@PathVariable Long id, @RequestParam String name) {
+        Optional<MachineDto> machine = machineService.updateMachineNameById(id, name);
         return machine.isPresent() ? new ResponseEntity(machine.get(), HttpStatus.OK) : new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping("/machine/{name}")
-    public ResponseEntity<MachineDto> createMachine(@PathVariable String name) {
+    @PostMapping("/machine")
+    public ResponseEntity<MachineDto> createMachine(@RequestParam String name) {
         Optional<MachineDto> machine = machineService.createMachineByName(name);
         return machine.isPresent() ? new ResponseEntity(machine.get(), HttpStatus.CREATED) : new ResponseEntity(HttpStatus.BAD_REQUEST);
     }
