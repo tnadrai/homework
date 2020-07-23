@@ -14,7 +14,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Parent - Pom Aggregator</name>
-    <description>This pom is a maven aggregator that contains all application modules. </description>
+    <description>This pom is a maven aggregator that contains all application modules.</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -34,6 +34,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
         </dependency>
     </dependencies>
     <modules>
