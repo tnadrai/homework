@@ -38,14 +38,6 @@
             <artifactId>spring-web</artifactId>
         </dependency>
 
-
-        <!-- Third pary dependencies -->
-        <!-- https://mvnrepository.com/artifact/com.github.riccardove.easyjasub/subtitleConvert -->
-        <dependency>
-            <groupId>com.github.riccardove.easyjasub</groupId>
-            <artifactId>subtitleConvert</artifactId>
-            <version>1.0.2</version>
-        </dependency>
     </dependencies>
     
     <build>
